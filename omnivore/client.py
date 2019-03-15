@@ -107,6 +107,6 @@ def handle_error_code(json, status_code, headers):
 
 
 def handle_parse_error(e, status_code=None, headers=None):
-    err = '{}: {}'.format(type(e).__name__, unicode(e))
+    err = '{}: {}'.format(type(e).__name__, str(e))
     msg = 'Error parsing Omnivore JSON response. \n\n{}'.format(err)
     raise error.APIError(msg, status_code, headers)
