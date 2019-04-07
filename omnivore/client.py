@@ -33,7 +33,7 @@ def get_headers():
 
 def get(url):
     try:
-        res = requests.get(url, headers=get_headers())
+        res = requests.get(url, headers=get_headers()).json()
     except Exception as e:
         handle_request_error(e)
 
