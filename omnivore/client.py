@@ -60,7 +60,7 @@ def delete(url):
 
 def handle_response(res, url):
     try:
-        json = res.json()
+        json = res
     except Exception as e:
         handle_parse_error(e, url)
 
@@ -108,5 +108,5 @@ def handle_error_code(json, status_code, headers):
 
 def handle_parse_error(e, url, status_code=None, headers=None):
     err = '{}: {}'.format(type(e).__name__, str(e))
-    msg = 'Error parsing Omnivore JSON response. \n\n{} {}'.format(err, url)
+    msg = 'Error parsing Omnivore JSON response. url \n\n{} {}'.format(err, url)
     raise error.APIError(msg, status_code, headers)
