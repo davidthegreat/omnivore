@@ -37,7 +37,7 @@ def get(url):
     except Exception as e:
         handle_request_error(e)
 
-    return handle_response(res)
+    return handle_response(res, url)
 
 
 def post(url, json):
@@ -58,11 +58,11 @@ def delete(url):
     return handle_response(res)
 
 
-def handle_response(res):
+def handle_response(res, url):
     try:
         json = res.json()
     except Exception as e:
-        handle_parse_error(e)
+        handle_parse_error(e, url)
 
     if not (200 <= res.status_code < 300):
         handle_error_code(json, res.status_code, res.headers)
@@ -106,7 +106,7 @@ def handle_error_code(json, status_code, headers):
         raise error.APIError(err, status_code, headers)
 
 
-def handle_parse_error(e, status_code=None, headers=None):
+def handle_parse_error(e, url, status_code=None, headers=None):
     err = '{}: {}'.format(type(e).__name__, str(e))
-    msg = 'Error parsing Omnivore JSON response. \n\n{}'.format(err)
+    msg = 'Error parsing Omnivore JSON response. \n\n{} {}'.format(err, url)
     raise error.APIError(msg, status_code, headers)
